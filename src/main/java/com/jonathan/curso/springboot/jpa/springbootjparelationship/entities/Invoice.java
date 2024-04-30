@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,6 +23,7 @@ public class Invoice {
     // Muchas facturas - un cliente
     // nombre columna de relacion por defecto: client_id
     @ManyToOne
+    @JoinColumn(name = "id_cliente_temp")
     private Client client;
 
     public Invoice() {
@@ -60,7 +62,7 @@ public class Invoice {
         this.client = client;
     }
 
-    
+
     @Override
     public String toString() {
         return "{id=" + id + ", description=" + description + ", total=" + total + ", client=" + client + "}";
