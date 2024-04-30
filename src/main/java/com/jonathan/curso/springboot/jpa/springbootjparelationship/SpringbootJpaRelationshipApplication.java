@@ -1,5 +1,7 @@
 package com.jonathan.curso.springboot.jpa.springbootjparelationship;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,7 +29,8 @@ public class SpringbootJpaRelationshipApplication implements  CommandLineRunner 
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToOne();
+		// manyToOne();
+		manyToOneFindByIdClient();
 	}
 
 	@Transactional
@@ -40,5 +43,21 @@ public class SpringbootJpaRelationshipApplication implements  CommandLineRunner 
 		invoice.setClient(client);
 		Invoice invoiceDb = invoiceRepository.save(invoice);
 		System.out.println(invoiceDb);
+	}
+
+	@Transactional
+	public void manyToOneFindByIdClient() {
+
+		Optional<Client> optionalClient = clientRepository.findById(1L);
+
+		if (optionalClient.isPresent()) {
+			Client client = optionalClient.get();
+			
+			Invoice invoice = new Invoice("Compras de oficina", 2000L);
+			invoice.setClient(client);
+			Invoice invoiceDb = invoiceRepository.save(invoice);
+			System.out.println(invoiceDb);
+		}
+		
 	}
 }
